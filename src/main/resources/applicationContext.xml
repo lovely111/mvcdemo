@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+   <bean  id="driverManagerDataSource"   class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+       <property name="driverClassName"   value="com.mysql.jdbc.Driver"/>
+       <property name="url"                  value="jdbc:mysql:///test"/>
+       <property name="username"   value="root"/>
+       <property name="password"   value="1"/>
+   </bean>
+    <bean  id="druidDataSource"   class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName"   value="com.mysql.jdbc.Driver"/>
+        <property name="url"                  value="jdbc:mysql:///test"/>
+        <property name="username"   value="root"/>
+        <property name="password"   value="1"/>
+    </bean>
+
+<!--mybatis  和 spring 结合的地方-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="druidDataSource"/>
+        <!--下面是mybatis配置文件的制定路径-->
+        <property name="mapperLocations" value="classpath:mapper/*-mapper.xml"/>
+    </bean>
+
+    <!--看SqlSessionTemplate类源代码，它有三个构造方法，分别有1，2，3个参数。这句的-->
+    <!--意思就为它只有一个参数的构造方法的第一个参数（索引为0）注入一个SqlSessionFactory的实例-->
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+
+</beans>
