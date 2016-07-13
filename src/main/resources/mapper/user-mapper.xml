@@ -7,12 +7,13 @@
 
 <mapper namespace="user">
     <insert id="create" parameterType="demo.model.User" useGeneratedKeys="true" keyProperty="id">
-        INSERT  INTO   test.user  VALUES (NULL ,#{username},#{password})
+        INSERT INTO test.user VALUES (NULL,#{username},#{password})
     </insert>
 
-    <select id="query"  parameterType="demo.model.User" resultType="demo.m">
-        select *
-        from user  WHERE username = #{username} AND password = #{password}
-   </select>
+    <select id="query" parameterType="demo.model.User" resultType="demo.model.User">
+        SELECT *
+        FROM user
+        WHERE username = #{username} AND password = #{password}
+    </select>
 
 </mapper>

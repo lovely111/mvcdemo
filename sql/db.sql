@@ -23,6 +23,12 @@ SELECT *
 FROM test.user;
 
 
+
+DELETE FROM test.user  WHERE id=3;
+DELETE FROM test.user  WHERE id=4;
+DELETE FROM test.user  WHERE id=5;
+
+
 SELECT *
 FROM test.book;
 
